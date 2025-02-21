@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8C748792D67647200C7C5C0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C748782D67647200C7C5C0 /* CoreDataManager.swift */; };
+		F8C7487B2D6764FF00C7C5C0 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7487A2D6764FF00C7C5C0 /* ErrorMessages.swift */; };
 		F8FDDF0F2D64C87D00C325BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF0E2D64C87D00C325BF /* AppDelegate.swift */; };
 		F8FDDF112D64C87D00C325BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF102D64C87D00C325BF /* SceneDelegate.swift */; };
 		F8FDDF132D64C87D00C325BF /* MainScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF122D64C87D00C325BF /* MainScreenVC.swift */; };
@@ -17,9 +19,21 @@
 		F8FDDF2C2D65EAAB00C325BF /* CICustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF2B2D65EAAB00C325BF /* CICustomCell.swift */; };
 		F8FDDF2E2D65EE5B00C325BF /* ChildInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF2D2D65EE5B00C325BF /* ChildInfoView.swift */; };
 		F8FDDF322D66483D00C325BF /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF312D66483D00C325BF /* PersonalInfoView.swift */; };
+		F8FDDF382D6660A500C325BF /* AddChildVCold.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF372D6660A500C325BF /* AddChildVCold.swift */; };
+		F8FDDF3A2D66621700C325BF /* CIMainLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF392D66621700C325BF /* CIMainLabel.swift */; };
+		F8FDDF3C2D66623100C325BF /* CITextFiled.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF3B2D66623100C325BF /* CITextFiled.swift */; };
+		F8FDDF3E2D66642100C325BF /* CIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF3D2D66642100C325BF /* CIButton.swift */; };
+		F8FDDF452D66677C00C325BF /* ChildObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF432D66677C00C325BF /* ChildObject+CoreDataClass.swift */; };
+		F8FDDF462D66677C00C325BF /* ChildObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF442D66677C00C325BF /* ChildObject+CoreDataProperties.swift */; };
+		F8FDDF4A2D67379100C325BF /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF492D67379100C325BF /* PersonalInfoVC.swift */; };
+		F8FDDF4C2D67389700C325BF /* PersonalInfoForMainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF4B2D67389700C325BF /* PersonalInfoForMainUser.swift */; };
+		F8FDDF4E2D67397100C325BF /* PersonalInfoForChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF4D2D67397100C325BF /* PersonalInfoForChild.swift */; };
+		F8FDDF502D673D6C00C325BF /* AddChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDDF4F2D673D6C00C325BF /* AddChildVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F8C748782D67647200C7C5C0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		F8C7487A2D6764FF00C7C5C0 /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
 		F8FDDF0B2D64C87D00C325BF /* ChildrenInfoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChildrenInfoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FDDF0E2D64C87D00C325BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8FDDF102D64C87D00C325BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +46,16 @@
 		F8FDDF2B2D65EAAB00C325BF /* CICustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CICustomCell.swift; sourceTree = "<group>"; };
 		F8FDDF2D2D65EE5B00C325BF /* ChildInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildInfoView.swift; sourceTree = "<group>"; };
 		F8FDDF312D66483D00C325BF /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
+		F8FDDF372D6660A500C325BF /* AddChildVCold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChildVCold.swift; sourceTree = "<group>"; };
+		F8FDDF392D66621700C325BF /* CIMainLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIMainLabel.swift; sourceTree = "<group>"; };
+		F8FDDF3B2D66623100C325BF /* CITextFiled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CITextFiled.swift; sourceTree = "<group>"; };
+		F8FDDF3D2D66642100C325BF /* CIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIButton.swift; sourceTree = "<group>"; };
+		F8FDDF432D66677C00C325BF /* ChildObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F8FDDF442D66677C00C325BF /* ChildObject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8FDDF492D67379100C325BF /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
+		F8FDDF4B2D67389700C325BF /* PersonalInfoForMainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoForMainUser.swift; sourceTree = "<group>"; };
+		F8FDDF4D2D67397100C325BF /* PersonalInfoForChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoForChild.swift; sourceTree = "<group>"; };
+		F8FDDF4F2D673D6C00C325BF /* AddChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChildVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +72,8 @@
 		F8FDDF022D64C87D00C325BF = {
 			isa = PBXGroup;
 			children = (
+				F8FDDF432D66677C00C325BF /* ChildObject+CoreDataClass.swift */,
+				F8FDDF442D66677C00C325BF /* ChildObject+CoreDataProperties.swift */,
 				F8FDDF0D2D64C87D00C325BF /* ChildrenInfoApp */,
 				F8FDDF0C2D64C87D00C325BF /* Products */,
 			);
@@ -64,19 +90,101 @@
 		F8FDDF0D2D64C87D00C325BF /* ChildrenInfoApp */ = {
 			isa = PBXGroup;
 			children = (
+				F8FDDF582D67463000C325BF /* Screens */,
+				F8FDDF522D67457F00C325BF /* Custom Views */,
+				F8FDDF512D6744DB00C325BF /* Archive */,
 				F8FDDF0E2D64C87D00C325BF /* AppDelegate.swift */,
 				F8FDDF102D64C87D00C325BF /* SceneDelegate.swift */,
-				F8FDDF122D64C87D00C325BF /* MainScreenVC.swift */,
-				F8FDDF2B2D65EAAB00C325BF /* CICustomCell.swift */,
-				F8FDDF252D64CE0500C325BF /* InfoView.swift */,
-				F8FDDF2D2D65EE5B00C325BF /* ChildInfoView.swift */,
-				F8FDDF312D66483D00C325BF /* PersonalInfoView.swift */,
 				F8FDDF1A2D64C88100C325BF /* Assets.xcassets */,
 				F8FDDF1C2D64C88100C325BF /* LaunchScreen.storyboard */,
 				F8FDDF1F2D64C88100C325BF /* Info.plist */,
 				F8FDDF172D64C87D00C325BF /* ChildrenInfoApp.xcdatamodeld */,
+				F8C748782D67647200C7C5C0 /* CoreDataManager.swift */,
+				F8C7487A2D6764FF00C7C5C0 /* ErrorMessages.swift */,
 			);
 			path = ChildrenInfoApp;
+			sourceTree = "<group>";
+		};
+		F8FDDF512D6744DB00C325BF /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF372D6660A500C325BF /* AddChildVCold.swift */,
+				F8FDDF312D66483D00C325BF /* PersonalInfoView.swift */,
+			);
+			path = Archive;
+			sourceTree = "<group>";
+		};
+		F8FDDF522D67457F00C325BF /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF592D67464600C325BF /* Cells */,
+				F8FDDF572D6745E300C325BF /* ViewControllers */,
+				F8FDDF562D6745DA00C325BF /* Views */,
+				F8FDDF552D6745AE00C325BF /* Labels */,
+				F8FDDF542D6745A500C325BF /* TextFields */,
+				F8FDDF532D67459E00C325BF /* Buttons */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		F8FDDF532D67459E00C325BF /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF3D2D66642100C325BF /* CIButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		F8FDDF542D6745A500C325BF /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF3B2D66623100C325BF /* CITextFiled.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		F8FDDF552D6745AE00C325BF /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF392D66621700C325BF /* CIMainLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		F8FDDF562D6745DA00C325BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF252D64CE0500C325BF /* InfoView.swift */,
+				F8FDDF2D2D65EE5B00C325BF /* ChildInfoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F8FDDF572D6745E300C325BF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF492D67379100C325BF /* PersonalInfoVC.swift */,
+				F8FDDF4B2D67389700C325BF /* PersonalInfoForMainUser.swift */,
+				F8FDDF4D2D67397100C325BF /* PersonalInfoForChild.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F8FDDF582D67463000C325BF /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF122D64C87D00C325BF /* MainScreenVC.swift */,
+				F8FDDF4F2D673D6C00C325BF /* AddChildVC.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F8FDDF592D67464600C325BF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F8FDDF2B2D65EAAB00C325BF /* CICustomCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,12 +258,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8FDDF322D66483D00C325BF /* PersonalInfoView.swift in Sources */,
+				F8FDDF462D66677C00C325BF /* ChildObject+CoreDataProperties.swift in Sources */,
+				F8FDDF3C2D66623100C325BF /* CITextFiled.swift in Sources */,
+				F8C748792D67647200C7C5C0 /* CoreDataManager.swift in Sources */,
+				F8FDDF4C2D67389700C325BF /* PersonalInfoForMainUser.swift in Sources */,
+				F8FDDF3A2D66621700C325BF /* CIMainLabel.swift in Sources */,
 				F8FDDF2C2D65EAAB00C325BF /* CICustomCell.swift in Sources */,
 				F8FDDF132D64C87D00C325BF /* MainScreenVC.swift in Sources */,
+				F8C7487B2D6764FF00C7C5C0 /* ErrorMessages.swift in Sources */,
+				F8FDDF4A2D67379100C325BF /* PersonalInfoVC.swift in Sources */,
 				F8FDDF0F2D64C87D00C325BF /* AppDelegate.swift in Sources */,
 				F8FDDF2E2D65EE5B00C325BF /* ChildInfoView.swift in Sources */,
+				F8FDDF3E2D66642100C325BF /* CIButton.swift in Sources */,
+				F8FDDF4E2D67397100C325BF /* PersonalInfoForChild.swift in Sources */,
 				F8FDDF192D64C87D00C325BF /* ChildrenInfoApp.xcdatamodeld in Sources */,
+				F8FDDF502D673D6C00C325BF /* AddChildVC.swift in Sources */,
+				F8FDDF382D6660A500C325BF /* AddChildVCold.swift in Sources */,
 				F8FDDF262D64CE0500C325BF /* InfoView.swift in Sources */,
+				F8FDDF452D66677C00C325BF /* ChildObject+CoreDataClass.swift in Sources */,
 				F8FDDF112D64C87D00C325BF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

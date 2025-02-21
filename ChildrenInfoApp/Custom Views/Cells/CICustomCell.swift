@@ -12,7 +12,8 @@ class CICustomCell: UITableViewCell {
     static let reuseID = "CICustomCell"
     let childInfoView = ChildInfoView()
     let deleteButton = UIButton()
-    var child = ""
+    var child: ChildObject?
+    var deleteButtonAction: (()-> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,14 +24,15 @@ class CICustomCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(child: String) {
+    func set(child: ChildObject) {
         self.child = child
+        childInfoView.set(child: child)
     }
     
     func configure() {
         contentView.addSubview(childInfoView)
         contentView.addSubview(deleteButton)
-            
+        
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         deleteButton.setTitle("Удалить", for: .normal)
         deleteButton.setTitleColor(.systemBlue, for: .normal)
@@ -55,6 +57,11 @@ class CICustomCell: UITableViewCell {
    
     @objc func deleteButtonTapped() {
         print("tapped")
+        guard let childToDelete = self.child else { return }
+        CoreDataManager.shared.deleteChild(child: childToDelete) { error in
+            print(error ?? "")
+        }
+        deleteButtonAction?()
     }
 
 }

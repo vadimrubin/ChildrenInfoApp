@@ -13,8 +13,8 @@ enum InfoTypes {
 
 class InfoView: UIView {
     
-    let titleLabel = UILabel()
-    let infoLabel = UILabel()
+    let titleLabel = CIMainLabel()
+    let infoLabel = CIMainLabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,13 +28,6 @@ class InfoView: UIView {
     private func configure() {
         addSubview(titleLabel)
         addSubview(infoLabel)
-        
-        titleLabel.textAlignment = .left
-        titleLabel.font = .systemFont(ofSize: 16)
-        titleLabel.textColor = .systemGray
-        infoLabel.textAlignment = .left
-        infoLabel.font = .systemFont(ofSize: 16)
-        infoLabel.textColor = .systemGray
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -52,12 +45,14 @@ class InfoView: UIView {
         ])
     }
     
-    func set(type: InfoTypes) {
+    func set(type: InfoTypes, child: ChildObject) {
         switch type {
         case .name:
             titleLabel.text = "Имя"
+            infoLabel.text = child.name
         case .age:
             titleLabel.text = "Возраст"
+            infoLabel.text = child.age
         }
     }
     

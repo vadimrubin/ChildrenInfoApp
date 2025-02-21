@@ -11,10 +11,10 @@ class PersonalInfoView: UIView {
     
     let nameView = UIView()
     let ageView = UIView()
-    let nameLabel = UILabel()
-    let ageLabel = UILabel()
-    let nameTextField = UITextField()
-    let ageTextField = UITextField()
+    let nameLabel = CIMainLabel()
+    let ageLabel = CIMainLabel()
+    let nameTextField = CITextFiled()
+    let ageTextField = CITextFiled()
     let defaults = UserDefaults.standard
 
     override init(frame: CGRect) {
@@ -59,19 +59,10 @@ class PersonalInfoView: UIView {
         nameView.addSubview(nameLabel)
         nameView.addSubview(nameTextField)
         
-        nameLabel.textAlignment = .left
-        nameLabel.font = .systemFont(ofSize: 16)
-        nameLabel.textColor = .systemGray
         nameLabel.text = "Имя"
         nameTextField.text = defaults.string(forKey: "Name")
         nameTextField.delegate = self
-        nameTextField.textAlignment = .left
-        nameTextField.font = .systemFont(ofSize: 16)
-        nameTextField.textColor = .systemGray
         nameTextField.placeholder = "Введите имя"
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: nameView.topAnchor),
@@ -90,20 +81,11 @@ class PersonalInfoView: UIView {
         ageView.addSubview(ageLabel)
         ageView.addSubview(ageTextField)
         
-        ageLabel.textAlignment = .left
-        ageLabel.font = .systemFont(ofSize: 16)
-        ageLabel.textColor = .systemGray
         ageLabel.text = "Возраст"
         ageTextField.text = defaults.string(forKey: "Age")
         ageTextField.delegate = self
         ageTextField.keyboardType = .numberPad
-        ageTextField.textAlignment = .left
-        ageTextField.font = .systemFont(ofSize: 16)
-        ageTextField.textColor = .systemGray
         ageTextField.placeholder = "Введите возраст"
-        
-        ageLabel.translatesAutoresizingMaskIntoConstraints = false
-        ageTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             ageLabel.topAnchor.constraint(equalTo: ageView.topAnchor),

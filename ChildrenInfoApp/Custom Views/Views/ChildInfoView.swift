@@ -21,12 +21,14 @@ class ChildInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func set(child: ChildObject) {
+        nameInfoView.set(type: .name, child: child)
+        ageInfoView.set(type: .age, child: child)
+    }
+    
     func configure() {
         addSubview(nameInfoView)
         addSubview(ageInfoView)
-        
-        nameInfoView.set(type: .name)
-        ageInfoView.set(type: .age)
 
         nameInfoView.layer.borderWidth = 2
         nameInfoView.layer.borderColor = UIColor.lightGray.cgColor

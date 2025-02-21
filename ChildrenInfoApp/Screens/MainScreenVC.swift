@@ -7,27 +7,56 @@
 
 import UIKit
 
-class MainScreenVC: UIViewController {
+class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
     
     let personalInfoLabel = UILabel()
-    let personalInfoView = PersonalInfoView()
+    let personalInfoContainer = UIView()
     let childrenLabel = UILabel()
-    let addChildButton = UIButton()
+    let addChildButton = CIButton(color: .systemBlue)
     let childrenTable = UITableView()
-    let clearButton = UIButton()
-    
+    let clearButton = CIButton(color: .systemRed)
     let minPadding: CGFloat = 15
+    var childrenArray: [ChildObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configurePersonalInfoLabel()
-        configurePersonalInfoView()
+        configurePersonalInfoContainer()
         configureChildrenLabel()
         configureAddChildButton()
         configureClearButton()
         configureChildrenTable()
         createDismissKeyboardTapGesture()
+        importCoreData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        importCoreData()
+    }
+    
+    func updateTable() {
+        importCoreData()
+        if childrenArray.count >= 5 {
+            addChildButton.isHidden = true
+        }
+    }
+    
+    func importCoreData() {
+        CoreDataManager.shared.retrieveChildren { result in
+            switch result {
+            case .success(let children):
+                self.childrenArray = children
+                if self.childrenArray.count == 5 {
+                    self.addChildButton.isHidden = true
+                }
+                DispatchQueue.main.async {
+                    self.childrenTable.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func add(childVC: UIViewController, to containerView: UIView) {
@@ -52,18 +81,20 @@ class MainScreenVC: UIViewController {
         ])
     }
     
-    fileprivate func configurePersonalInfoView() {
+    fileprivate func configurePersonalInfoContainer() {
         
         
-        view.addSubview(personalInfoView)
-        personalInfoView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(personalInfoContainer)
+        personalInfoContainer.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            personalInfoView.topAnchor.constraint(equalTo: personalInfoLabel.bottomAnchor, constant: 5),
-            personalInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: minPadding),
-            personalInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -minPadding),
-            personalInfoView.heightAnchor.constraint(equalToConstant: 150)
+            personalInfoContainer.topAnchor.constraint(equalTo: personalInfoLabel.bottomAnchor, constant: 5),
+            personalInfoContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: minPadding),
+            personalInfoContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -minPadding),
+            personalInfoContainer.heightAnchor.constraint(equalToConstant: 150)
         ])
+        let personalVC = PersonalInfoForMainUser()
+        self.add(childVC: personalVC, to: personalInfoContainer)
     }
     
     fileprivate func configureChildrenLabel() {
@@ -74,7 +105,7 @@ class MainScreenVC: UIViewController {
         childrenLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            childrenLabel.topAnchor.constraint(equalTo: personalInfoView.bottomAnchor, constant: minPadding),
+            childrenLabel.topAnchor.constraint(equalTo: personalInfoContainer.bottomAnchor, constant: minPadding),
             childrenLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: minPadding),
             childrenLabel.heightAnchor.constraint(equalToConstant: 40),
             childrenLabel.widthAnchor.constraint(equalToConstant: 150)
@@ -83,9 +114,7 @@ class MainScreenVC: UIViewController {
     
     fileprivate func configureAddChildButton() {
         view.addSubview(addChildButton)
-        addChildButton.layer.cornerRadius = 20
-        addChildButton.layer.borderWidth = 2
-        addChildButton.layer.borderColor = UIColor.systemBlue.cgColor
+        addChildButton.addTarget(self, action: #selector(pushAddChildVC), for: .touchUpInside)
         addChildButton.setTitle("Добавить ребенка", for: .normal)
         if let symbolImage = UIImage(systemName: "plus") {
             var configuration = UIButton.Configuration.plain()
@@ -93,26 +122,29 @@ class MainScreenVC: UIViewController {
             configuration.baseForegroundColor = .systemBlue
             addChildButton.configuration = configuration
         }
-        addChildButton.setTitleColor(.systemBlue, for: .normal)
-        addChildButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-        addChildButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            addChildButton.topAnchor.constraint(equalTo: personalInfoView.bottomAnchor, constant: minPadding),
+            addChildButton.topAnchor.constraint(equalTo: personalInfoContainer.bottomAnchor, constant: minPadding),
             addChildButton.leadingAnchor.constraint(equalTo: childrenLabel.trailingAnchor, constant: minPadding),
             addChildButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -minPadding),
             addChildButton.heightAnchor.constraint(equalToConstant: 40),
         ])
+        
+    }
+    
+    @objc func pushAddChildVC() {
+        print("add button tapped")
+        let destVC = AddChildVC()
+        destVC.deleg = self
+        destVC.modalPresentationStyle = .overFullScreen
+        destVC.modalTransitionStyle = .crossDissolve
+        self.present(destVC, animated: true)
     }
     
     fileprivate func configureClearButton() {
         view.addSubview(clearButton)
-        clearButton.layer.cornerRadius = 20
-        clearButton.layer.borderWidth = 2
-        clearButton.layer.borderColor = UIColor.systemRed.cgColor
         clearButton.setTitle("Очистить", for: .normal)
-        clearButton.setTitleColor(.systemRed, for: .normal)
-        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        clearButton.addTarget(self, action: #selector(showClearAlert), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -minPadding),
@@ -120,6 +152,30 @@ class MainScreenVC: UIViewController {
             clearButton.heightAnchor.constraint(equalToConstant: 40),
             clearButton.widthAnchor.constraint(equalTo: addChildButton.widthAnchor)
         ])
+    }
+    
+    @objc func showClearAlert() {
+        let alertContoller = UIAlertController(title: "", message: "Вы хотите удалить все записи?", preferredStyle: .actionSheet)
+        let clearAction = UIAlertAction(title: "Да", style: .destructive) { action in
+            if self.childrenArray.count > 0 {
+                for eachElement in self.childrenArray {
+                    CoreDataManager.shared.deleteChild(child: eachElement) { error in
+                        print(error ?? "")
+                    }
+                }
+                self.childrenArray.removeAll()
+                DispatchQueue.main.async {
+                    self.childrenTable.reloadData()
+                    self.addChildButton.isHidden = false
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        alertContoller.addAction(clearAction)
+        alertContoller.addAction(cancelAction)
+        
+        self.present(alertContoller, animated: true, completion: nil)
     }
     
     fileprivate func configureChildrenTable() {
@@ -147,12 +203,25 @@ class MainScreenVC: UIViewController {
 extension MainScreenVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return childrenArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CICustomCell.reuseID) as! CICustomCell
+        let child = childrenArray[indexPath.row]
+        cell.set(child: child)
+        cell.deleteButtonAction = { [weak self] in
+            self?.deleteItem(at: indexPath)
+        }
         return cell
+    }
+    
+    private func deleteItem(at indexPath:IndexPath) {
+        childrenArray.remove(at: indexPath.row)
+        if childrenArray.count < 5 {
+            addChildButton.isHidden = false
+        }
+        childrenTable.deleteRows(at: [indexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
