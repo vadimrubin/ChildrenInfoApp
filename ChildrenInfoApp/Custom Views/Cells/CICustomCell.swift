@@ -56,7 +56,6 @@ class CICustomCell: UITableViewCell {
     }
    
     @objc func deleteButtonTapped() {
-        print("tapped")
         guard let childToDelete = self.child else { return }
         CoreDataManager.shared.deleteChild(child: childToDelete) { error in
             print(error ?? "")

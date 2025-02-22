@@ -57,6 +57,7 @@ class PersonalInfoVC: UIViewController {
         
         nameLabel.text = "Имя"
         nameTextField.placeholder = "Введите имя"
+        nameTextField.textColor = .label
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: nameView.topAnchor),
@@ -78,6 +79,7 @@ class PersonalInfoVC: UIViewController {
         ageLabel.text = "Возраст"
         ageTextField.keyboardType = .numberPad
         ageTextField.placeholder = "Введите возраст"
+        ageTextField.textColor = .label
         
         NSLayoutConstraint.activate([
             ageLabel.topAnchor.constraint(equalTo: ageView.topAnchor),

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
+class MainScreenVC: UIViewController, UpdateTableProtocol, UIActionSheetDelegate {
     
     let personalInfoLabel = UILabel()
     let personalInfoContainer = UIView()
@@ -35,20 +35,34 @@ class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
         importCoreData()
     }
     
-    func updateTable() {
+    internal func updateTable() {
         importCoreData()
         if childrenArray.count >= 5 {
-            addChildButton.isHidden = true
+            DispatchQueue.main.async {
+                self.addChildButton.isHidden = true
+            }
+        }
+        if childrenArray.count > 0 {
+            DispatchQueue.main.async {
+                self.clearButton.isHidden = false
+            }
         }
     }
     
-    func importCoreData() {
+    fileprivate func importCoreData() {
         CoreDataManager.shared.retrieveChildren { result in
             switch result {
             case .success(let children):
                 self.childrenArray = children
                 if self.childrenArray.count == 5 {
-                    self.addChildButton.isHidden = true
+                    DispatchQueue.main.async {
+                        self.addChildButton.isHidden = true
+                    }
+                }
+                if self.childrenArray.count > 0 {
+                    DispatchQueue.main.async {
+                        self.clearButton.isHidden = false
+                    }
                 }
                 DispatchQueue.main.async {
                     self.childrenTable.reloadData()
@@ -57,13 +71,6 @@ class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
                 print(error)
             }
         }
-    }
-
-    func add(childVC: UIViewController, to containerView: UIView) {
-        addChild(childVC)
-        containerView.addSubview(childVC.view)
-        childVC.view.frame = containerView.bounds
-        childVC.didMove(toParent: self)
     }
     
     fileprivate func configurePersonalInfoLabel() {
@@ -133,9 +140,8 @@ class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
     }
     
     @objc func pushAddChildVC() {
-        print("add button tapped")
         let destVC = AddChildVC()
-        destVC.deleg = self
+        destVC.updateTableProtocolDelegate = self
         destVC.modalPresentationStyle = .overFullScreen
         destVC.modalTransitionStyle = .crossDissolve
         self.present(destVC, animated: true)
@@ -145,6 +151,7 @@ class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
         view.addSubview(clearButton)
         clearButton.setTitle("Очистить", for: .normal)
         clearButton.addTarget(self, action: #selector(showClearAlert), for: .touchUpInside)
+        clearButton.isHidden = true
         
         NSLayoutConstraint.activate([
             clearButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -minPadding),
@@ -167,6 +174,7 @@ class MainScreenVC: UIViewController, UpdateTable, UIActionSheetDelegate {
                 DispatchQueue.main.async {
                     self.childrenTable.reloadData()
                     self.addChildButton.isHidden = false
+                    self.clearButton.isHidden = true
                 }
             }
         }
@@ -219,9 +227,17 @@ extension MainScreenVC: UITableViewDelegate, UITableViewDataSource {
     private func deleteItem(at indexPath:IndexPath) {
         childrenArray.remove(at: indexPath.row)
         if childrenArray.count < 5 {
-            addChildButton.isHidden = false
+            DispatchQueue.main.async {
+                self.addChildButton.isHidden = false
+            }
+        }
+        if childrenArray.isEmpty {
+            DispatchQueue.main.async {
+                self.clearButton.isHidden = true
+            }
         }
         childrenTable.deleteRows(at: [indexPath], with: .automatic)
+        childrenTable.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

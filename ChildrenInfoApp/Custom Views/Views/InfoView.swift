@@ -50,9 +50,11 @@ class InfoView: UIView {
         case .name:
             titleLabel.text = "Имя"
             infoLabel.text = child.name
+            infoLabel.textColor = .label
         case .age:
             titleLabel.text = "Возраст"
             infoLabel.text = child.age
+            infoLabel.textColor = .label
         }
     }
     

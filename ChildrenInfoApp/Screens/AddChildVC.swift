@@ -11,29 +11,35 @@ protocol AddChildProtocol {
     func saveChildInfo()
 }
 
-protocol UpdateTable {
+protocol UpdateTableProtocol {
     func updateTable()
 }
 
-class AddChildVC: UIViewController {
+protocol DismissVCProtocol {
+    func dismissVC()
+}
+
+class AddChildVC: UIViewController, DismissVCProtocol {
 
     let containerView = UIView()
     let childInfoView = UIView()
     let saveButton = CIButton(color: .systemGreen)
     let padding: CGFloat = 10
-    var delegate: AddChildProtocol?
-    var deleg: UpdateTable?
+    let cancelButton = UIButton()
+    var addChildProtocolDelegate: AddChildProtocol?
+    var updateTableProtocolDelegate: UpdateTableProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         configureContainerView()
+        configureCancelButton()
         configurePersonalInfoForChild()
         configureSaveButton()
         createDismissKeyboardTapGesture()
     }
     
-    func configureContainerView() {
+    fileprivate func configureContainerView() {
         view.addSubview(containerView)
         containerView.backgroundColor = .systemBackground
         containerView.layer.cornerRadius = 16
@@ -49,7 +55,34 @@ class AddChildVC: UIViewController {
         ])
     }
     
-    func configurePersonalInfoForChild() {
+    fileprivate func configureCancelButton() {
+        let cancelImage = UIImageView()
+        cancelImage.image = UIImage(systemName: "x.circle.fill")
+        cancelImage.tintColor = .systemRed
+        view.addSubview(cancelButton)
+        cancelButton.addSubview(cancelImage)
+        cancelButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            cancelButton.bottomAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
+            cancelButton.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5),
+            cancelButton.widthAnchor.constraint(equalToConstant: 30),
+            cancelButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            cancelImage.topAnchor.constraint(equalTo: cancelButton.topAnchor),
+            cancelImage.leadingAnchor.constraint(equalTo: cancelButton.leadingAnchor),
+            cancelImage.trailingAnchor.constraint(equalTo: cancelButton.trailingAnchor),
+            cancelImage.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor)
+        ])
+    }
+    
+    @objc func dismissVC() {
+        dismiss(animated: true)
+    }
+    
+    fileprivate func configurePersonalInfoForChild() {
         containerView.addSubview(childInfoView)
         childInfoView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -60,11 +93,12 @@ class AddChildVC: UIViewController {
             childInfoView.heightAnchor.constraint(equalToConstant: 160)
         ])
         let personalInforForChild = PersonalInfoForChild()
-        self.delegate = personalInforForChild
+        personalInforForChild.dismissVCProtocolDelegate = self
+        self.addChildProtocolDelegate = personalInforForChild
         self.add(childVC: personalInforForChild, to: childInfoView)
     }
     
-    func configureSaveButton() {
+    fileprivate func configureSaveButton() {
         containerView.addSubview(saveButton)
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.addTarget(self, action: #selector(saveChildData), for: .touchUpInside)
@@ -78,22 +112,13 @@ class AddChildVC: UIViewController {
     }
     
     @objc func saveChildData() {
-        delegate?.saveChildInfo()
-        deleg?.updateTable()
-        dismiss(animated: true)
-    }
-    
-    func add(childVC: UIViewController, to containerView: UIView) {
-        addChild(childVC)
-        containerView.addSubview(childVC.view)
-        childVC.view.frame = containerView.bounds
-        childVC.didMove(toParent: self)
+        addChildProtocolDelegate?.saveChildInfo()
+        updateTableProtocolDelegate?.updateTable()
     }
     
     fileprivate func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
-
 }
 

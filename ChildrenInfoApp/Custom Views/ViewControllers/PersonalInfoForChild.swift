@@ -11,6 +11,7 @@ import UIKit
 
 class PersonalInfoForChild: PersonalInfoVC, AddChildProtocol {
     
+    var dismissVCProtocolDelegate: DismissVCProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,12 +19,18 @@ class PersonalInfoForChild: PersonalInfoVC, AddChildProtocol {
     }
     
     func saveChildInfo() {
-        guard let name = nameTextField.text else { return }
-        guard let age = ageTextField.text else { return }
-        CoreDataManager.shared.saveChild(name: name, age: age) { error in
-            print(error ?? "")
+        if nameTextField.hasText && ageTextField.hasText {
+            let name = nameTextField.text!
+            let age = ageTextField.text!
+            CoreDataManager.shared.saveChild(name: name, age: age) { error in
+                print(error ?? "")
+            }
+            dismissVCProtocolDelegate?.dismissVC()
+        } else {
+            nameTextField.attributedPlaceholder = NSAttributedString(string: "Нужно ввести имя", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
+            ageTextField.attributedPlaceholder = NSAttributedString(string: "Нужно ввести возраст", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
         }
-        print("data saved!!!")
+        
     }
 }
 

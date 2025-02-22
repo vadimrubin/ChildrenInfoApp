@@ -13,6 +13,8 @@ class PersonalInfoForMainUser: PersonalInfoVC {
         super.viewDidLoad()
         nameTextField.delegate = self
         ageTextField.delegate = self
+        nameTextField.placeholder = "Введите свое имя"
+        ageTextField.placeholder = "Введите свой возраст"
         ageTextField.text = defaults.string(forKey: "Age")
         nameTextField.text = defaults.string(forKey: "Name")
     }
